@@ -20,13 +20,45 @@ public class RunTest implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Users users=new Users("Brian Mutuma",123456);
-        users=feignClient.CreateUser(users);
-        Movies movies=feignClient.CreateMovie(users.getId(),"Horror","IT Chapter 2","2019");
-        List<Users> allusers = feignClient.getAllUsers();
+        //create new user
+        Users users=new Users("Ruth Maina",95885);
+//        users=feignClient.CreateUser(users);
+//        System.err.println("New User: "+users.toString());
 
-        System.err.println("New User: "+users.toString());
+
+        //list all users
+        List<Users> allusers = feignClient.getAllUsers();
         System.err.println("All User: "+allusers);
-        System.err.println("New Movie: "+movies.toString());
+
+        //find user by National Id
+//        users=feignClient.getUserByNationalID(users.getNationalID());
+        users=feignClient.getUserByNationalID(95885);
+        System.err.println("Found user: "+users.toString());
+
+
+        //user to create new movie
+//        Movies movies=feignClient.CreateMovie(users.getId(),"Action-Gods","Clash of titans","2014");
+//        System.err.println("New Movie created: "+movies.toString());
+
+        //list user's movies
+        List<Movies> usermovies= feignClient.getUserMovies(users.getNationalID());
+        System.err.println( users.getName()+"'s Movies : "+ usermovies);
+
+        //find particular movie
+        Movies foundmovie= feignClient.getSingleMovie((long)5);
+        System.err.println( users.getName()+"'s Movie Found : "+foundmovie);
+
+        //update found movie
+        Movies updatemovie= new Movies("Updated Movie","2020");
+        updatemovie=feignClient.UpdateMovie(users.getNationalID(),foundmovie.getId(),updatemovie);
+        System.err.println("Updated Movie: "+updatemovie);
+
+        //list user's movies again
+        usermovies= feignClient.getUserMovies(users.getNationalID());
+        System.err.println( users.getName()+"'s Movies : "+ usermovies);
+
+        //list all categories
+        List<Categories> cats= feignClient.getAllcategories();
+        System.err.println("All Categories: "+cats);
     }
 }

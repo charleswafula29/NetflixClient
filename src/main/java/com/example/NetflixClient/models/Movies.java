@@ -10,9 +10,14 @@ public class Movies {
     public Movies() {
     }
 
-    public Movies(String name, String type, String yearReleased) {
+//    public Movies(String name, String type, String yearReleased) {
+//        this.name = name;
+//        this.type = type;
+//        this.yearReleased = yearReleased;
+//    }
+
+    public Movies(String name, String yearReleased) {
         this.name = name;
-        this.type = type;
         this.yearReleased = yearReleased;
     }
 
