@@ -16,6 +16,10 @@ public interface FeignRestClient {
     @RequestMapping(method = RequestMethod.GET, value = "users")
     List<Users> getAllUsers();
 
+
+    @RequestMapping(method = RequestMethod.GET, value = "movies")
+    List<Movies> getAllMovies();
+
     @RequestMapping(method = RequestMethod.POST, value = "users")
     Users CreateUser(@RequestBody Users users);
 
@@ -24,6 +28,11 @@ public interface FeignRestClient {
 
     @RequestMapping(method = RequestMethod.POST, value = "users/{id}/movies")
     Movies CreateMovie(@PathVariable Long id, @RequestParam(name = "category") String category,
+                       @RequestParam(name = "movieName") String movieName,
+                       @RequestParam(name = "yearReleased") String yearReleased);
+
+    @RequestMapping(method = RequestMethod.POST, value = "movies/createoriginal")
+    Movies CreateOriginalMovie(@RequestParam(name = "category") String category,
                        @RequestParam(name = "movieName") String movieName,
                        @RequestParam(name = "yearReleased") String yearReleased);
 
@@ -43,7 +52,7 @@ public interface FeignRestClient {
     Users deleteMovie (@PathVariable(name = "nationalId") Integer nationalId, @PathVariable(name = "movieid") Long movieid);
 
     @RequestMapping(method = RequestMethod.DELETE, value = "users/deleteUser/{userId}")
-    Users deleteUser (@PathVariable(name = "userId") Integer userId);
+    Users deleteUser (@PathVariable(name = "userId") long userId);
 
     @RequestMapping(method = RequestMethod.PATCH, value = "movies/{NationalId}/updatemovies/{id}")
     Movies UpdateMovie (@PathVariable Integer NationalId,@PathVariable long id, @RequestBody Movies movies);
